@@ -1,8 +1,11 @@
 {
+  "homepage": "http://5lum6er.github.io/vue-notes-app",
   "name": "vue-notes-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
@@ -18,6 +21,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "gh-pages": "^3.1.0",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
