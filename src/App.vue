@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Noteses</h1>
+    <h1>Notees</h1>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt placeat totam dolores enim ullam aliquam quasi saepe dicta nam laborum commodi quidem, maiores sapiente aliquid fuga dolore sunt ut quisquam.</p>
   </div>
 </template>
