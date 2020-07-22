@@ -1,6 +1,12 @@
 <template>
   <div class="new-note">
-    <input type="text" v-model="title" @keyup.enter="handleSubmit" />
+    <input
+      class="new-note__field"
+      type="text"
+      placeholder="Type and press Enter to create new note"
+      v-model="title"
+      @keyup.enter="handleSubmit"
+    />
   </div>
 </template>
 
@@ -26,3 +32,27 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+  .new-note {
+    margin-bottom: 25px;
+  }
+  
+  .new-note__field {
+    padding: 10px 0 10px 10px;
+    width: 400px;
+    height: 50px;
+
+    box-sizing: border-box;
+    border: 2px solid black;
+
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .new-note__field::placeholder {
+    font-size: 20px;
+    font-weight: bold;
+    color: #aeaeae;
+  }
+</style>

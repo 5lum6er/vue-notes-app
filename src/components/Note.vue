@@ -1,17 +1,22 @@
 <template>
   <div class="note">
-    <li> 
+    <li class="note__item"> 
       <div class="note__header">
-        <div class="note__info">
-          <p class="note__title">{{note.title}}</p>
-          <p class="note__date">{{note.createAt}}</p>
-        </div>
+        <p class="note__title">{{note.title}}</p>
+        <button class="note__btn btn-edit">	&#9998;</button>
+      </div>
+      <div class="note__body">
+        <Todos :todos="todos"/>
+      </div>
+      <div class="note__footer">
+        <p class="note__date">{{note.createAt}}</p>
         <button
           class="note__btn btn-close"
           :value="value"
           @click="onDelete()"
         >
-          &#10005;
+          &#128465;
+          <!-- &#10005; -->
         </button>
       </div>
     </li>
@@ -19,32 +24,57 @@
 </template>
 
 <script>
-export default {
-  name: "Note",
-  props: [ 'note', 'onDelete', 'value' ], 
-}
+  import Todos from './Todos';
+
+  export default {
+    name: "Note",
+    props: [ 'note', 'onDelete', 'value', 'todos' ],
+    components: { Todos }
+  }
 </script>
 
 <style scoped>
   .note {
+    margin-bottom: 3px;
+    padding: 15px;
+    border: 2px solid black;
+    border-radius: 5px;
+
     text-align: left;
   }
 
   .note:hover .note__btn {
-    display: block;
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: rotateY(180deg);
+    transition: 1s;
   }
 
   .note__header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
   }
 
   .note__title {
     margin: 0;
     font-size: 25px;
     font-weight: bold;
+  }
+
+  .note__btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-edit {
+    font-size: 30px;
+    transform: rotateY(180deg);
+  }
+
+  .note__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
   }
 
   .note__date {
@@ -54,16 +84,11 @@ export default {
     color: #aeaeae;
   }
   
-  .note__btn {
-    background: none;
-    border: none;
-
-    display: none;
+  .btn-close {
+    opacity: 0;
 
     color: red;
-    font-size: 14px;
+    font-size: 30px;
     font-weight: bold;
-
-    transition: 0.5s;
   }
 </style>

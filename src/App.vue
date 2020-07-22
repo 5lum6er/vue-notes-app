@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app" class="app">
     <ModalConfirmDelete :onConfirm="onConfirm" v-show="modalIsShown" />
-    <h1>Notes</h1>
+    <h1 class="app__title">Notes</h1>
     <NewNote :onAdd="onAdd" />
     <Notes :onDelete="onDelete" :notes="notes"/>
   </div>
@@ -30,13 +30,17 @@
     methods: {
       onAdd(title) {
         this.notes = [
-          ...this.notes,
           {
             title,
             id: Date.now(),
             createAt: new Date().toLocaleString(),
-            todos: [],
-          }
+            todos: [
+              {title: "Todo 1", completed: false, id: 1, },
+              {title: "Todo 2", completed: false, id: 2, },
+              {title: "Todo 3", completed: false, id: 3, },
+            ],
+          },
+          ...this.notes,
         ];
         localStorage.setItem('notes', JSON.stringify(this.notes));
       },
@@ -67,12 +71,16 @@
 </script>
 
 <style>
-#app {
+.app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.app__title {
+  font-size: 100px;
 }
 </style>
