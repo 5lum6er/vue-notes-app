@@ -2,17 +2,37 @@
   <div class="note">
     <li class="note__item"> 
       <div class="note__header">
-        <p class="note__title">{{note.title}}</p>
-        <button class="note__btn btn-edit">	&#9998;</button>
+        <p class="note__title">
+          <span>
+            &#8801;
+          </span>
+            {{note.title}}
+        </p>
+        <button
+          type="button"
+          class="note__btn btn-edit pencil-icon"
+          @click="onEdit(note.id)"
+        >
+          &#9998;
+        </button>
       </div>
       <div class="note__body">
-        <Todos :todos="todos"/>
+        <p
+          class="note__empty-todos"
+          v-show="note.todos.length === 0"
+        >
+          Press <span class="pencil-icon">&#9998;</span> to add new todo
+        </p>
+        <Todos
+          v-show="note.todos.length !== 0"
+          :todos="[...note.todos].filter((todo, i) => i < 3)"
+        />
       </div>
       <div class="note__footer">
         <p class="note__date">{{note.createAt}}</p>
         <button
           class="note__btn btn-close"
-          :value="value"
+          :value="note.id"
           @click="onDelete()"
         >
           &#128465;
@@ -28,7 +48,7 @@
 
   export default {
     name: "Note",
-    props: [ 'note', 'onDelete', 'value', 'todos' ],
+    props: [ 'note', 'onDelete', 'onEdit' ],
     components: { Todos }
   }
 </script>
@@ -66,9 +86,22 @@
     cursor: pointer;
   }
 
+  .pencil-icon {
+    display: inline-block;
+    transform: rotateY(180deg);
+  }
+
   .btn-edit {
     font-size: 30px;
-    transform: rotateY(180deg);
+  }
+
+  .note__empty-todos {
+    margin: 0;
+
+    color: rgb(146, 146, 146);
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 2px;
   }
 
   .note__footer {

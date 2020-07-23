@@ -6,8 +6,7 @@
         :key="note.id"
         :note="note"
         :onDelete="onDelete"
-        :value="note.id"
-        :todos="note.todos"
+        :onEdit="onEdit"
       />
     </ul>
   </div>
@@ -17,7 +16,7 @@
   import Note from './Note';
   export default {
     name: 'Notes',
-    props: ['notes', 'onDelete'],
+    props: ['notes', 'onDelete', 'onEdit'],
     components: { Note, },
   }
 </script>

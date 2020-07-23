@@ -35,12 +35,13 @@ export default {
 
 <style scoped>
   .new-note {
-    margin-bottom: 25px;
+    max-width: 400px;
+    margin: 0 auto 25px;
   }
   
   .new-note__field {
     padding: 10px 0 10px 10px;
-    width: 400px;
+    width: 100%;
     height: 50px;
 
     box-sizing: border-box;

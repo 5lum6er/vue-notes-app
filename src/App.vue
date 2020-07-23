@@ -3,12 +3,24 @@
     <ModalConfirmDelete :onConfirm="onConfirm" v-show="modalIsShown" />
     <h1 class="app__title">Notes</h1>
     <NewNote :onAdd="onAdd" />
-    <Notes :onDelete="onDelete" :notes="notes"/>
+    <div class="temp">
+      <!-- <Notes
+        :onDelete="onDelete"
+        :notes="notes"
+        :onEdit="onEdit"
+      />
+      <NoteDetails :onDelete="onDelete" :selectedNote="selectedNote" /> -->
+      <router-view
+        :onDelete="onDelete"
+        :selectedNote="selectedNote"
+        :notes="notes"
+        :onEdit="onEdit"
+      ></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-  import Notes from './components/Notes';
   import NewNote from './components/NewNote';
   import ModalConfirmDelete from './components/ModalConfirmDelete';
 
@@ -20,12 +32,14 @@
         modalIsShown: false,
         confirmDelete: false,
         deletingItemId: null,
+        selectedNote: {}
       }
     },
     components: {
-      Notes,
+      // Notes,
       NewNote,
       ModalConfirmDelete,
+      // NoteDetails
     },
     methods: {
       onAdd(title) {
@@ -35,9 +49,14 @@
             id: Date.now(),
             createAt: new Date().toLocaleString(),
             todos: [
-              {title: "Todo 1", completed: false, id: 1, },
-              {title: "Todo 2", completed: false, id: 2, },
-              {title: "Todo 3", completed: false, id: 3, },
+              // {title: "Todo 1", completed: false, id: 1},
+              // {title: "Todo 1", completed: false, id: 1},
+              // {title: "Todo 1", completed: false, id: 1},
+              // {title: "Todo 1", completed: false, id: 1},
+              // {title: "Todo 1", completed: false, id: 1},
+              // {title: "Todo 1", completed: false, id: 1},
+              // {title: "Todo 1", completed: false, id: 1},
+              // {title: "Todo 1", completed: false, id: 1}
             ],
           },
           ...this.notes,
@@ -60,6 +79,12 @@
         }
 
         this.modalIsShown = false;
+      },
+      onEdit(id) {
+        const selected = this.notes.find(note => note.id === id);
+
+        this.selectedNote = selected;
+        this.$router.push('/details/' + id);
       }
     },
     mounted() {
@@ -71,6 +96,10 @@
 </script>
 
 <style>
+.temp {
+ display: flex;
+}
+
 .app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
