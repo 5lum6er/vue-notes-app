@@ -3,13 +3,12 @@
     <ModalConfirmDelete :onConfirm="onConfirm" v-show="modalIsShown" />
     <h1 class="app__title">Notes</h1>
     <!-- <NewNote :onAdd="onAdd" /> -->
-    <router-view name="a"></router-view> 
+    <router-view name="a" :onAdd="onAdd"></router-view> 
     <router-view
       :onDelete="onDelete"
       :selectedNote="selectedNote"
       :notes="notes"
       :onEdit="onEdit"
-      :onAdd="onAdd"
     ></router-view>
   </div>
 </template>
