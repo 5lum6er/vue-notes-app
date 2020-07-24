@@ -66,7 +66,7 @@
         if (event.target.value === 'ok') {
           this.notes = [...this.notes].filter(note => note.id !== +id);
           localStorage.setItem('notes', JSON.stringify(this.notes));
-          this.$router.push('/');
+          this.$router.push('/vue-notes-app/');
         }
 
         this.modalIsShown = false;
