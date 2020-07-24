@@ -2,26 +2,19 @@
   <div id="app" class="app">
     <ModalConfirmDelete :onConfirm="onConfirm" v-show="modalIsShown" />
     <h1 class="app__title">Notes</h1>
-    <NewNote :onAdd="onAdd" />
-    <div class="temp">
-      <!-- <Notes
-        :onDelete="onDelete"
-        :notes="notes"
-        :onEdit="onEdit"
-      />
-      <NoteDetails :onDelete="onDelete" :selectedNote="selectedNote" /> -->
-      <router-view
-        :onDelete="onDelete"
-        :selectedNote="selectedNote"
-        :notes="notes"
-        :onEdit="onEdit"
-      ></router-view>
-    </div>
+    <!-- <NewNote :onAdd="onAdd" /> -->
+    <router-view name="a"></router-view> 
+    <router-view
+      :onDelete="onDelete"
+      :selectedNote="selectedNote"
+      :notes="notes"
+      :onEdit="onEdit"
+      :onAdd="onAdd"
+    ></router-view>
   </div>
 </template>
 
 <script>
-  import NewNote from './components/NewNote';
   import ModalConfirmDelete from './components/ModalConfirmDelete';
 
   export default {
@@ -36,10 +29,7 @@
       }
     },
     components: {
-      // Notes,
-      NewNote,
       ModalConfirmDelete,
-      // NoteDetails
     },
     methods: {
       onAdd(title) {
@@ -65,7 +55,7 @@
       },
       onDelete() {
         this.deletingItemId = event.target.value;
-        this.showModal();   
+        this.showModal();
       },
       showModal() {
         this.modalIsShown = true;
@@ -76,6 +66,7 @@
         if (event.target.value === 'ok') {
           this.notes = [...this.notes].filter(note => note.id !== +id);
           localStorage.setItem('notes', JSON.stringify(this.notes));
+          this.$router.push('/');
         }
 
         this.modalIsShown = false;
@@ -96,10 +87,6 @@
 </script>
 
 <style>
-.temp {
- display: flex;
-}
-
 .app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

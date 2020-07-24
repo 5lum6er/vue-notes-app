@@ -1,7 +1,7 @@
 <template>
-  <div class="details">
-      <div class="details__header">
-        <p class="details__title">
+  <div class="note note__details details">
+      <div class="note__header">
+        <p class="note__title">
           <span>
             &#8801;
           </span>
@@ -9,27 +9,27 @@
         </p>
         <button
           type="button"
-          class="details__btn btn-edit pencil-icon"
+          class="note__btn btn-edit pencil-icon"
         >
           &#9998;
         </button>
       </div>
-      <!-- <div class="details__body">
-        <p
-          class="details__empty-todos"
+      <div class="note__body">
+        <!-- <p
+          class="n__empty-todos"
           v-show="todos.length === 0"
         >
           Press <span class="pencil-icon">&#9998;</span> to add new todo
-        </p>
-        <Todos
+        </p> -->
+        <!-- <Todos
           v-show="todos.length !== 0"
-          :todos="[...todos].filter((todo, i) => i < 3)"
-        />
-      </div> -->
-      <div class="details__footer">
-        <p class="details__date">{{selectedNote.createAt}}</p>
+          :todos="selectedNote.todos"
+        /> -->
+      </div>
+      <div class="note__footer">
+        <p class="note__date">{{selectedNote.createAt}}</p>
         <button
-          class="details__btn btn-close"
+          class="note__btn btn-close"
           :value="selectedNote.id"
           @click="onDelete()"
         >

@@ -53,7 +53,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   .note {
     margin-bottom: 3px;
     padding: 15px;
