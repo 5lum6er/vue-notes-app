@@ -8,7 +8,7 @@ export const routes = [
     components: { default: Notes, a: NewNote }
   },
   {
-    path: '/vue-notes-app/details/:id',
+    path: '/details/:id',
     component: NoteDetails
   }
 ];
