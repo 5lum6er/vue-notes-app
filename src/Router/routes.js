@@ -4,11 +4,11 @@ import NewNote from '../components/NewNote';
 
 export const routes = [
   {
-    path: '/',
+    path: '/vue-notes-app/',
     components: { default: Notes, a: NewNote }
   },
   {
-    path: '/details/:id',
+    path: '/vue-notes-app/details/:id',
     component: NoteDetails
   }
 ];
