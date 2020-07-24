@@ -23,17 +23,24 @@
         >
           Press <span class="pencil-icon">&#9998;</span> to add new todo
         </p>
-        <Todos
+        <ul
           v-show="note.todos.length !== 0"
-          :todos="[...note.todos].filter((todo, i) => i < 3)"
-        />
+          class="note__short-todos"
+        >
+          <li
+            v-for="todo of note.todos.filter((todo, i) => i < 3)"
+            :key="todo.id"
+          >
+            {{todo.completed ? `&#10004;` : `&#9675;`}} {{todo.title}}
+          </li>
+        </ul>
       </div>
       <div class="note__footer">
         <p class="note__date">{{note.createAt}}</p>
         <button
           class="note__btn btn-close"
           :value="note.id"
-          @click="onDelete()"
+          @click="onNoteDelete()"
         >
           &#128465;
           <!-- &#10005; -->
@@ -44,12 +51,9 @@
 </template>
 
 <script>
-  import Todos from './Todos';
-
   export default {
     name: "Note",
-    props: [ 'note', 'onDelete', 'onEdit' ],
-    components: { Todos }
+    props: [ 'note', 'onNoteDelete', 'onEdit' ],
   }
 </script>
 
@@ -102,6 +106,10 @@
     font-size: 16px;
     text-align: center;
     letter-spacing: 2px;
+  }
+
+  .note__short-todos {
+    list-style: none;
   }
 
   .note__footer {

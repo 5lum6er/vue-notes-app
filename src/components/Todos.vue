@@ -21,7 +21,9 @@
 
 <style scoped>
   .todos {
-    width: 50%;
+    max-height: 400px;
+    width: 100%;
+    overflow-Y: scroll;
   }
 
   .todo-list {

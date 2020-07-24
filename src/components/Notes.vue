@@ -5,7 +5,7 @@
         v-for="note of notes"
         :key="note.id"
         :note="note"
-        :onDelete="onDelete"
+        :onNoteDelete="onNoteDelete"
         :onEdit="onEdit"
       />
     </ul>
@@ -16,7 +16,7 @@
   import Note from './Note';
   export default {
     name: 'Notes',
-    props: ['notes', 'onDelete', 'onEdit'],
+    props: ['notes', 'onNoteDelete', 'onEdit'],
     components: { Note, },
   }
 </script>

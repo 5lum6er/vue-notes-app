@@ -2,36 +2,38 @@
   <div class="note note__details details">
       <div class="note__header">
         <p class="note__title">
-          <span>
+          <span class="note__logo">
             &#8801;
           </span>
-            {{selectedNote.title}}
         </p>
+        <input
+          class="note__edit"
+          type="text"
+          v-model="newTitle"
+        />
         <button
           type="button"
-          class="note__btn btn-edit pencil-icon"
         >
-          &#9998;
+          SAVE
         </button>
       </div>
       <div class="note__body">
-        <!-- <p
-          class="n__empty-todos"
-          v-show="todos.length === 0"
-        >
-          Press <span class="pencil-icon">&#9998;</span> to add new todo
-        </p> -->
-        <!-- <Todos
-          v-show="todos.length !== 0"
+        <Todos
+          v-show="selectedNote.todos.length !== 0"
           :todos="selectedNote.todos"
-        /> -->
+          :onTodoAdd="onTodoAdd"
+        />
+        <NewTodo
+          :onTodoAdd="onTodoAdd"
+        />
+        <p>ADD TODO</p>
       </div>
       <div class="note__footer">
         <p class="note__date">{{selectedNote.createAt}}</p>
         <button
           class="note__btn btn-close"
           :value="selectedNote.id"
-          @click="onDelete()"
+          @click="onNoteDelete()"
         >
           &#128465;
           <!-- &#10005; -->
@@ -42,12 +44,45 @@
 </template>
 
 <script>
+  import Todos from './Todos';
+  import NewTodo from './NewTodo';
+
   export default {
     name: "NoteDetails",
-    props: [ 'selectedNote', 'onDelete' ],
+    props: [ 'selectedNote', 'onNoteDelete', 'onTodoAdd' ],
+    data() {
+      return {
+        newTitle: this.selectedNote.title,
+      };
+    },
+    components: { Todos, NewTodo },
   }
 </script>
 
 <style scoped>
+  .note {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .note__header {
+    margin-bottom: 15px;
+  }
   
+  .note__logo {
+    font-size: 40px;
+  }
+
+  .note__edit {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .note__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 </style>

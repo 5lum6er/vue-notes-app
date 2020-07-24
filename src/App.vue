@@ -5,10 +5,11 @@
     <!-- <NewNote :onAdd="onAdd" /> -->
     <router-view name="a" :onAdd="onAdd"></router-view> 
     <router-view
-      :onDelete="onDelete"
+      :onNoteDelete="onNoteDelete"
       :selectedNote="selectedNote"
       :notes="notes"
       :onEdit="onEdit"
+      :onTodoAdd="onTodoAdd"
     ></router-view>
   </div>
 </template>
@@ -18,6 +19,7 @@
 
   export default {
     name: 'App',
+
     data() {
       return {
         notes: [],
@@ -27,9 +29,11 @@
         selectedNote: {}
       }
     },
+
     components: {
       ModalConfirmDelete,
     },
+
     methods: {
       onAdd(title) {
         this.notes = [
@@ -39,44 +43,57 @@
             createAt: new Date().toLocaleString(),
             todos: [
               // {title: "Todo 1", completed: false, id: 1},
-              // {title: "Todo 1", completed: false, id: 1},
-              // {title: "Todo 1", completed: false, id: 1},
-              // {title: "Todo 1", completed: false, id: 1},
-              // {title: "Todo 1", completed: false, id: 1},
-              // {title: "Todo 1", completed: false, id: 1},
-              // {title: "Todo 1", completed: false, id: 1},
-              // {title: "Todo 1", completed: false, id: 1}
+              // {title: "Todo 1", completed: false, id: 2},
+              // {title: "Todo 1", completed: false, id: 3},
+              // {title: "Todo 1", completed: false, id: 4},
+              // {title: "Todo 1", completed: false, id: 5},
             ],
           },
           ...this.notes,
         ];
         localStorage.setItem('notes', JSON.stringify(this.notes));
       },
-      onDelete() {
+
+      onTodoAdd(title) {
+        this.selectedNote.todos = [
+          ...this.selectedNote.todos,
+          {
+            title,
+            completed: false,
+            id: Date.now()
+          }
+        ];
+      },
+
+      onNoteDelete() {
         this.deletingItemId = event.target.value;
         this.showModal();
       },
+
       showModal() {
         this.modalIsShown = true;
       },
+
       onConfirm() {
         const id = this.deletingItemId;
 
         if (event.target.value === 'ok') {
           this.notes = [...this.notes].filter(note => note.id !== +id);
           localStorage.setItem('notes', JSON.stringify(this.notes));
-          this.$router.push('/vue-notes-app/');
+          this.$router.go('/vue-notes-app/');
         }
 
         this.modalIsShown = false;
       },
+
       onEdit(id) {
         const selected = this.notes.find(note => note.id === id);
 
         this.selectedNote = selected;
         this.$router.push('/details/' + id);
-      }
+      },
     },
+
     mounted() {
       if (localStorage.notes) {
         this.notes = JSON.parse(localStorage.getItem('notes') || '[]');

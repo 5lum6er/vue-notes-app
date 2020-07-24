@@ -11,8 +11,4 @@ export const routes = [
     path: '/details/:id',
     component: NoteDetails
   },
-  // {
-  //   path: '*',
-  //   components: { default: Notes, a: NewNote }
-  // }
 ];
