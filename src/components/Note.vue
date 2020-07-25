@@ -43,7 +43,6 @@
           @click="onNoteDelete()"
         >
           &#128465;
-          <!-- &#10005; -->
         </button>
       </div>
     </li>
