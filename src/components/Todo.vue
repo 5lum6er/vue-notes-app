@@ -26,7 +26,11 @@
         />
       </div>
       <div class="todo__action">
-        <button class="todo__btn btn-delete" type=button>
+        <button
+          class="todo__btn btn-delete"
+          type="button"
+          @click="onTodoDelete(todo.id)"
+        >
           &#10006;
         </button>
       </div>
@@ -37,7 +41,7 @@
 <script>
   export default {
     name: "Todo",
-    props: [ 'todo' ],
+    props: [ 'todo', 'onTodoDelete' ],
     data() {
       return {
         changedTodoTitle: this.todo.title,
@@ -76,10 +80,6 @@
 
   .todo__status:checked ~ .todo__status-label {
     background-color: rgb(48, 197, 48);
-  }
-
-  .todo__status:checked ~ .todo__title .todo__edit {
-    text-decoration: line-through;
   }
 
   .todo__status-label {

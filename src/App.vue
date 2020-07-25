@@ -9,7 +9,7 @@
       :selectedNote="selectedNote"
       :notes="notes"
       :onEdit="onEdit"
-      :onTodoAdd="onTodoAdd"
+      :onSave="onSave"
     ></router-view>
   </div>
 </template>
@@ -54,17 +54,6 @@
         localStorage.setItem('notes', JSON.stringify(this.notes));
       },
 
-      onTodoAdd(title) {
-        this.selectedNote.todos = [
-          ...this.selectedNote.todos,
-          {
-            title,
-            completed: false,
-            id: Date.now()
-          }
-        ];
-      },
-
       onNoteDelete() {
         this.deletingItemId = event.target.value;
         this.showModal();
@@ -78,9 +67,8 @@
         const id = this.deletingItemId;
 
         if (event.target.value === 'ok') {
-          this.notes = [...this.notes].filter(note => note.id !== +id);
+          this.notes = this.notes.filter(note => note.id !== +id);
           localStorage.setItem('notes', JSON.stringify(this.notes));
-          this.$router.go('/vue-notes-app/');
         }
 
         this.modalIsShown = false;
@@ -92,6 +80,12 @@
         this.selectedNote = selected;
         this.$router.push('/details/' + id);
       },
+
+      onSave(changedNote) {
+        this.notes[this.notes.indexOf(this.selectedNote)] = changedNote;
+        localStorage.setItem('notes', JSON.stringify(this.notes));
+        this.$router.back();
+      }
     },
 
     mounted() {
@@ -115,4 +109,36 @@
 .app__title {
   font-size: 100px;
 }
+
+::-webkit-scrollbar {
+    width: 7px;
+    height: 0;
+  }
+
+  ::-webkit-scrollbar-button {
+    height: 0;
+    background-color: #666;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #000;
+  }
+
+  ::-webkit-scrollbar-track-piece {
+    background-color: #fff;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    height: 50px;
+    background-color: #666;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background-color: #888;
+  }
+
+  ::-webkit-resizer {
+    background-color: #666;
+  }
 </style>

@@ -9,19 +9,22 @@
         <input
           class="note__edit"
           type="text"
-          v-model="newTitle"
+          v-model="tempNote.title"
         />
         <button
           type="button"
+          @click="onSave(tempNote)"
         >
           SAVE
         </button>
       </div>
       <div class="note__body">
+        <span class="note__hint">Double click on the one of todos to change it</span>
         <Todos
-          v-show="selectedNote.todos.length !== 0"
-          :todos="selectedNote.todos"
+          v-show="tempNote.todos.length"
+          :todos="tempNote.todos"
           :onTodoAdd="onTodoAdd"
+          :onTodoDelete="onTodoDelete"
         />
         <NewTodo
           :onTodoAdd="onTodoAdd"
@@ -33,10 +36,12 @@
         <button
           class="note__btn btn-close"
           :value="selectedNote.id"
-          @click="onNoteDelete()"
+          @click="() => {
+            onNoteDelete();
+            this.$router.back();
+            }"
         >
           &#128465;
-          <!-- &#10005; -->
         </button>
       </div>
     
@@ -49,13 +54,34 @@
 
   export default {
     name: "NoteDetails",
-    props: [ 'selectedNote', 'onNoteDelete', 'onTodoAdd' ],
+    props: [
+      'selectedNote',
+      'onNoteDelete',
+      'onSave',
+    ],
     data() {
       return {
-        newTitle: this.selectedNote.title,
+        tempNote: JSON.parse(JSON.stringify(this.selectedNote)),
       };
     },
     components: { Todos, NewTodo },
+
+    methods: {
+      onTodoAdd(title) {
+        this.tempNote.todos = [
+          ...this.tempNote.todos,
+          {
+            title,
+            completed: false,
+            id: Date.now()
+          }
+        ];
+      },
+
+      onTodoDelete(id) {
+        this.tempNote.todos = this.tempNote.todos.filter(todo => todo.id !== id);
+      },
+    }
   }
 </script>
 
@@ -84,5 +110,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  .note__hint {
+    font-size: 14px;
+    color: #aeaeae;
+    padding: 5px 0;
   }
 </style>

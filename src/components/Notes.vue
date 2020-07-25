@@ -34,36 +34,4 @@
     padding: 0;
     list-style: none;
   }
-
-  ::-webkit-scrollbar {
-    width: 7px;
-    height: 0;
-  }
-
-  ::-webkit-scrollbar-button {
-    height: 0;
-    background-color: #666;
-  }
-
-  ::-webkit-scrollbar-track {
-    background-color: #000;
-  }
-
-  ::-webkit-scrollbar-track-piece {
-    background-color: #fff;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    height: 50px;
-    background-color: #666;
-    border-radius: 3px;
-  }
-
-  ::-webkit-scrollbar-corner {
-    background-color: #888;
-  }
-
-  ::-webkit-resizer {
-    background-color: #666;
-  }
 </style>

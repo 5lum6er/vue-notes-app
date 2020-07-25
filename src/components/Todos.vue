@@ -5,6 +5,7 @@
         v-for="todo of todos"
         :key="todo.id"
         :todo="todo"
+        :onTodoDelete="onTodoDelete"
       />
     </ul>
   </div>
@@ -14,7 +15,7 @@
   import Todo from './Todo';
   export default {
     name: 'Todos',
-    props: ['todos'],
+    props: ['todos', 'onTodoDelete'],
     components: { Todo, },
   }
 </script>
