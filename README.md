@@ -1,5 +1,7 @@
 # vue-notes-app
 
+[PREVIEW](https://5lum6er.github.io/vue-notes-app/)
+
 ## Project setup
 ```
 npm install
@@ -19,6 +21,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configurations
-See [Configuration Reference](https://cli.vuejs.org/config/).
