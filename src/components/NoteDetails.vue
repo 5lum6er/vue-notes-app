@@ -12,6 +12,7 @@
           v-model="tempNote.title"
         />
         <button
+          class="note__btn btn-save"
           type="button"
           @click="onSave(tempNote)"
         >
@@ -19,7 +20,7 @@
         </button>
       </div>
       <div class="note__body">
-        <span class="note__hint">Double click on the one of todos to change it</span>
+        <span v-show="tempNote.todos.length" class="note__hint">Double click on the one of todos to change it</span>
         <Todos
           v-show="tempNote.todos.length"
           :todos="tempNote.todos"
@@ -33,16 +34,29 @@
       </div>
       <div class="note__footer">
         <p class="note__date">{{selectedNote.createAt}}</p>
-        <button
-          class="note__btn btn-close"
-          :value="selectedNote.id"
-          @click="() => {
-            onNoteDelete();
-            this.$router.back();
-            }"
-        >
-          &#128465;
-        </button>
+        <div class="note__actions">
+          <button
+            class="note__btn btn-remove-changes"
+            type="button"
+            @click="onRemoveChanges"
+          >
+            Remove changes
+          </button>
+          <button
+            class="note__btn btn-cancel"
+            type="button"
+            @click="onCancelChanges"
+          >
+            Cancel
+          </button>
+          <button
+            class="note__btn btn-close"
+            :value="selectedNote.id"
+            @click="onNoteDelete"
+          >
+            &#128465;
+          </button>
+        </div>
       </div>
     
   </div>
@@ -58,6 +72,7 @@
       'selectedNote',
       'onNoteDelete',
       'onSave',
+      'onCancelChanges'
     ],
     data() {
       return {
@@ -68,19 +83,27 @@
 
     methods: {
       onTodoAdd(title) {
-        this.tempNote.todos = [
-          ...this.tempNote.todos,
-          {
-            title,
-            completed: false,
-            id: Date.now()
-          }
-        ];
+        const valid = title.replace(/\s/g, ' ').trimLeft();
+
+        if (valid) {
+          this.tempNote.todos = [
+            ...this.tempNote.todos,
+            {
+              title: valid,
+              completed: false,
+              id: Date.now()
+            }
+          ];
+        }
       },
 
       onTodoDelete(id) {
         this.tempNote.todos = this.tempNote.todos.filter(todo => todo.id !== id);
       },
+
+      onRemoveChanges() {
+        this.tempNote = JSON.parse(JSON.stringify(this.selectedNote));
+      }
     }
   }
 </script>
@@ -116,5 +139,16 @@
     font-size: 14px;
     color: #aeaeae;
     padding: 5px 0;
+  }
+
+  .note__actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .btn-cancel,
+  .btn-remove-changes {
+    margin-right: 10px;
   }
 </style>

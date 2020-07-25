@@ -2,10 +2,10 @@
   <div id="app" class="app">
     <ModalConfirmDelete :onConfirm="onConfirm" v-show="modalIsShown" />
     <h1 class="app__title">Notes</h1>
-    <!-- <NewNote :onAdd="onAdd" /> -->
-    <router-view name="a" :onAdd="onAdd"></router-view> 
+    <router-view name="add" :onAdd="onAdd"></router-view> 
     <router-view
       :onNoteDelete="onNoteDelete"
+      :onCancelChanges="onCancelChanges"
       :selectedNote="selectedNote"
       :notes="notes"
       :onEdit="onEdit"
@@ -26,7 +26,8 @@
         modalIsShown: false,
         confirmDelete: false,
         deletingItemId: null,
-        selectedNote: {}
+        selectedNote: {},
+        modalAction: ''
       }
     },
 
@@ -41,34 +42,40 @@
             title,
             id: Date.now(),
             createAt: new Date().toLocaleString(),
-            todos: [
-              // {title: "Todo 1", completed: false, id: 1},
-              // {title: "Todo 1", completed: false, id: 2},
-              // {title: "Todo 1", completed: false, id: 3},
-              // {title: "Todo 1", completed: false, id: 4},
-              // {title: "Todo 1", completed: false, id: 5},
-            ],
+            todos: []
           },
           ...this.notes,
         ];
         localStorage.setItem('notes', JSON.stringify(this.notes));
       },
 
+      showModal() {
+        this.modalIsShown = true;
+      },
+
       onNoteDelete() {
         this.deletingItemId = event.target.value;
+        this.modalAction = 'delete';
         this.showModal();
       },
 
-      showModal() {
-        this.modalIsShown = true;
+      onCancelChanges() {
+        this.modalAction = 'cancel changes';
+        this.showModal();
       },
 
       onConfirm() {
         const id = this.deletingItemId;
 
-        if (event.target.value === 'ok') {
+        if (event.target.value === 'ok' && this.modalAction === 'delete') {
           this.notes = this.notes.filter(note => note.id !== +id);
           localStorage.setItem('notes', JSON.stringify(this.notes));
+
+          if(this.$route.path  !== '/vue-notes-app/'){
+            this.$router.push('/vue-notes-app/');
+          }
+        } else if (event.target.value === 'ok' && this.modalAction === 'cancel changes') {
+          this.$router.back();
         }
 
         this.modalIsShown = false;
@@ -97,20 +104,20 @@
 </script>
 
 <style>
-.app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  .app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 60px;
+  }
 
-.app__title {
-  font-size: 100px;
-}
+  .app__title {
+    font-size: 100px;
+  }
 
-::-webkit-scrollbar {
+  ::-webkit-scrollbar {
     width: 7px;
     height: 0;
   }

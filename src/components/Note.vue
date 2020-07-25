@@ -67,12 +67,6 @@
     text-align: left;
   }
 
-  .note:hover .note__btn {
-    opacity: 1;
-    transform: rotateY(180deg);
-    transition: 1s;
-  }
-
   .note__header {
     display: flex;
     justify-content: space-between;
@@ -85,9 +79,15 @@
   }
 
   .note__btn {
+    padding: 5px;
     background: none;
-    border: none;
+    border-radius: 5px;
     cursor: pointer;
+
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.2;
+    letter-spacing: 2px;
   }
 
   .pencil-icon {
@@ -96,6 +96,7 @@
   }
 
   .btn-edit {
+    border: none;
     font-size: 30px;
   }
 
@@ -126,8 +127,7 @@
   }
   
   .btn-close {
-    opacity: 0;
-
+    border: none;
     color: red;
     font-size: 30px;
     font-weight: bold;

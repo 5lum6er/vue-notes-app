@@ -2,7 +2,7 @@
   <div class="modal__container">
     <div class="modal">
       <div class="modal__header">
-        <h2>Are you shure you want to delete this note?</h2>
+        <h2>Are you shure you want to do this?</h2>
       </div>
       <div class="modal__footer">
         <button
@@ -31,7 +31,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .modal__container {
     display: flex;
     justify-content: center;
